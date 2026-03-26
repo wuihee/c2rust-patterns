@@ -10,15 +10,6 @@ Append one element to a growable contiguous buffer, expanding capacity when full
 
 ## Observed In (projects/files)
 
-- Generic C utility libraries: custom vector/list implementations in `src/*.{c,h}`
-- Parser/compiler frontends: token or AST node buffers
-- Networking/system tools: request/response accumulator arrays
-- `examples/parson/parson.c`:
-  - `json_array_add` grows when `count >= capacity`, writes at `items[count]`, then increments `count`
-  - `json_array_resize` allocates new storage, `memcpy`s old elements, frees old storage, and updates `capacity`
-
-Concrete examples for this repository are tracked under:
-
 - `examples/demo_project/dynamic_array_append.c`
 - `examples/parson/dynamic_array_append.c`
 
@@ -43,22 +34,10 @@ int __vec_append(void **data, size_t *len, size_t *cap, size_t elem_size, const 
 }
 ```
 
-Candidate normalized call site form:
-
-```c
-if (__vec_append((void **)&buf->data, &buf->len, &buf->cap, sizeof(buf->data[0]), &value) != 0) {
-  return ERR_OOM;
-}
-```
-
 ## Variations
 
 - **Growth policy**: doubling (`cap *= 2`), 1.5x growth, fixed chunk growth, or minimum threshold bootstrap.
-- **Write mode**: direct assignment for POD types vs `memcpy` for generic element type.
-- **Error path**: return codes, `abort`, global error flags, or caller-provided allocator hooks.
-- **Index discipline**: pre-increment vs post-increment ordering around element write.
 - **Resize strategy**: in-place `realloc` vs allocate-copy-free helper (`malloc` + `memcpy` + `free`) as seen in parson.
-- **Operation split**: append logic split across `add()` and `resize()` helpers rather than one local block.
 
 ## Edge Cases
 
