@@ -1,5 +1,3 @@
-// Extracted/minimized from parson's JSON array growth path.
-
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,9 +13,6 @@ typedef struct {
   size_t count;
   size_t capacity;
 } JSON_Array;
-
-#define STARTING_CAPACITY 16
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 static JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity) {
   JSON_Value **new_items = NULL;
@@ -37,18 +32,5 @@ static JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity) {
   free(array->items);
   array->items = new_items;
   array->capacity = new_capacity;
-  return JSONSuccess;
-}
-
-static JSON_Status json_array_add(JSON_Array *array, JSON_Value *value) {
-  if (array->count >= array->capacity) {
-    size_t new_capacity = MAX(array->capacity * 2, STARTING_CAPACITY);
-    if (json_array_resize(array, new_capacity) != JSONSuccess) {
-      return JSONFailure;
-    }
-  }
-
-  array->items[array->count] = value;
-  array->count++;
   return JSONSuccess;
 }
