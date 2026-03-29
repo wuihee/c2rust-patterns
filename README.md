@@ -15,15 +15,6 @@ For example, what is semantically a vector append may appear as:
 
 When these operations are treated as unrelated statements, translation quality suffers and generated Rust code is often non-idiomatic. This project studies recurring implementation patterns in real C code and normalizes them into canonical representations that can map cleanly to Rust abstractions such as `Vec`, `String`, and `HashMap`.
 
-## Project Approach
-
-The workflow is intentionally simple and iterative:
-
-1. **Pattern discovery**: inspect real-world C codebases and collect recurring low-level implementation patterns.
-2. **Pattern documentation**: record semantic intent, code shape, variations, and edge cases in a shared catalog.
-3. **Normalization design**: define canonical intrinsics or a small C API (e.g., `__vec_append`) to represent each pattern semantically.
-4. **Translation mapping**: map canonical forms to idiomatic Rust constructs.
-
 ## Repository Structure
 
 ```text
@@ -34,10 +25,6 @@ The workflow is intentionally simple and iterative:
 ├── patterns/              # one markdown file per documented pattern
 └── tools/                 # future scripts (analysis, extraction, normalization)
 ```
-
-## Current Status
-
-This repository is in the **early pattern discovery phase**.
 
 ### TODOs
 
