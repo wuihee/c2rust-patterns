@@ -32,3 +32,14 @@ When these operations are treated as unrelated statements, translation quality s
 - Compare implementation variants and failure modes across projects.
 - Draft first version of canonical intrinsic/API surface.
 - Prototype a small normalization pass for one or two patterns.
+
+#### Potential Test Cases
+
+- git
+- curl
+- redis
+- libgit2
+- nginx
+- libuv
+- sqlite
+- ffmpeg

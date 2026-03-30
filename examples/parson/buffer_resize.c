@@ -17,7 +17,32 @@ typedef struct {
   size_t capacity;
 } JSON_Array;
 
-JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity);
+static JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity) {
+  JSON_Value **new_items = NULL;
+  if (new_capacity == 0) {
+    return JSONFailure;
+  }
+
+  // Reallocation
+  new_items = (JSON_Value **)malloc(new_capacity * sizeof(JSON_Value *));
+
+  // Error Handling
+  if (new_items == NULL) {
+    return JSONFailure;
+  }
+
+  // Reallocation
+  if (array->items != NULL && array->count > 0) {
+    memcpy(new_items, array->items, array->count * sizeof(JSON_Value *));
+  }
+
+  // Commit
+  free(array->items);
+  array->items = new_items;
+  array->capacity = new_capacity;
+
+  return JSONSuccess;
+}
 
 static JSON_Status json_array_add(JSON_Array *array, JSON_Value *value) {
   if (array->count >= array->capacity) {
