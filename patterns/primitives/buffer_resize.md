@@ -1,7 +1,5 @@
 # Pattern: `buffer_resize`
 
-## Semantic Intent
-
 Ensure a growable contiguous buffer has enough spare capacity for an upcoming write, without changing logical length.
 
 ## Observed In
