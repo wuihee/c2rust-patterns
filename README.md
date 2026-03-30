@@ -22,7 +22,7 @@ When these operations are treated as unrelated statements, translation quality s
 ├── docs/                  # project overview, methodology, and process docs
 ├── examples/              # extracted real-world snippets grouped by source project
 ├── notes/                 # raw observations, open questions, and work logs
-├── patterns/              # one markdown file per documented pattern
+├── patterns/              # catalog of common C patterns
 └── tools/                 # future scripts (analysis, extraction, normalization)
 ```
 
