@@ -26,14 +26,18 @@ When these operations are treated as unrelated statements, translation quality s
 └── tools/                 # future scripts (analysis, extraction, normalization)
 ```
 
-### TODOs
+## TODOs
 
 - Add 5-10 high-frequency patterns from diverse C codebases.
 - Compare implementation variants and failure modes across projects.
 - Draft first version of canonical intrinsic/API surface.
 - Prototype a small normalization pass for one or two patterns.
 
-#### Potential Test Cases
+### Notes
+
+It seems like `buffer_resize` is a _semantic primitve_ built from many _operational primitives_.
+
+### Potential Test Cases
 
 - git
 - curl
