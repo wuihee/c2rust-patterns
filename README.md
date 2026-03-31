@@ -13,7 +13,9 @@ For example, what is semantically a vector append may appear as:
 - `memcpy` or direct write
 - length increment
 
-When these operations are treated as unrelated statements, translation quality suffers and generated Rust code is often non-idiomatic. This project studies recurring implementation patterns in real C code and normalizes them into canonical representations that can map cleanly to Rust abstractions such as `Vec`, `String`, and `HashMap`.
+When these operations are treated as unrelated statements, translation quality suffers and generated Rust code is often non-idiomatic.
+
+This project studies recurring patterns in real C code that can map cleanly to Rust's `Vec` abstraction.
 
 ## Repository Structure
 
@@ -25,17 +27,6 @@ When these operations are treated as unrelated statements, translation quality s
 ├── patterns/              # catalog of common C patterns
 └── tools/                 # future scripts (analysis, extraction, normalization)
 ```
-
-## TODOs
-
-- Add 5-10 high-frequency patterns from diverse C codebases.
-- Compare implementation variants and failure modes across projects.
-- Draft first version of canonical intrinsic/API surface.
-- Prototype a small normalization pass for one or two patterns.
-
-### Notes
-
-It seems like `buffer_resize` is a _semantic primitve_ built from many _operational primitives_.
 
 ### Potential Test Cases
 
