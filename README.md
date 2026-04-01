@@ -28,6 +28,10 @@ This project studies recurring patterns in real C code that can map cleanly to R
 └── tools/                 # future scripts (analysis, extraction, normalization)
 ```
 
+## TODOs
+
+- Identify the individual, identifying components of `vec` transitions.
+
 ### Potential Test Cases
 
 - git

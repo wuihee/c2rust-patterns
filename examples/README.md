@@ -21,19 +21,3 @@ examples/
 
 - Valid snippets: `<source>_<pattern>.c`
 - Invalid snippets: `<reason>.c`
-
-## Manifest Conventions
-
-Each manifest (`examples/manifests/<pattern>.yaml`) should include:
-
-- `pattern`
-- `required_components`
-- `examples` entries with:
-  - `id`
-  - `status` (`valid` or `invalid`)
-  - `repo`
-  - `path`
-  - `source`
-  - `missing_components` (for invalid examples)
-
-This structure keeps comparison and automated validation straightforward across repositories.

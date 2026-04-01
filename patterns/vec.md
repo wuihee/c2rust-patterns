@@ -16,54 +16,33 @@ typedef struct {
 } Vec;
 ```
 
-## Invariants
+## Transitions
 
-- Capacity: `length <= capacity`
+### Push Value
 
-## Semantic Patterns
-
-### Push
-
-Append a single element to the end of the array.
-
-- **Capacity Guard**: Check that there is sufficient space in the vec.
-- **Push Value**: Append the new value to the vec.
+Append `n` elements to the end of the array.
 
 ```c
-// Capacity Guard
-if (length >= capacity) {
-  resize();
-}
-
-// Push Value
+// Append One
 data[length] = value;
-
-// Length Update
 length++;
+
+// Append Many
+memcpy(&data[length], src, n);
+length += n;
 ```
 
-## Capability Patterns
+### Ensure Capcity
 
-### Resize
+Ensure `capacity` is sufficient for the required size.
 
-Resize the array to ensure sufficient capacity for future elements.
-
-- **Capacity Growth**: `new_capacity` > `old_capacity`
-- **Reallocation**
-  - `realloc`
-  - `malloc` + `memcpy` + `free`
-  - Custom Allocator
+- Post Condition: `capacity >= required_size`
 
 ```c
-// Capacity Growth
-size_t new_capacity = grow(capacity);
-
-// Reallocation
-T* new_data = new_memory(data, new_capacity);
-
-// Data Update
-data = new_data;
-
-// Capacity Update
-capacity = new_capacity;
+if (length >= capacity) {
+  size_t new_capacity = grow(capacity, requird_size);
+  T* new_data = new_memory(data, new_capacity);
+  data = new_data;
+  capacity = new_capacity;
+}
 ```
