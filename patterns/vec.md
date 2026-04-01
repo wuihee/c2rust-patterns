@@ -37,6 +37,8 @@ if (length >= capacity) {
 
 // Push Value
 data[length] = value;
+
+// Length Update
 length++;
 ```
 
@@ -59,7 +61,9 @@ size_t new_capacity = grow(capacity);
 // Reallocation
 T* new_data = new_memory(data, new_capacity);
 
-// State Update
+// Data Update
 data = new_data;
+
+// Capacity Update
 capacity = new_capacity;
 ```

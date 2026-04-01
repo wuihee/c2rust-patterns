@@ -23,7 +23,6 @@ static JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity) {
     return JSONFailure;
   }
 
-  // Reallocation
   new_items = (JSON_Value **)malloc(new_capacity * sizeof(JSON_Value *));
   if (new_items == NULL) {
     return JSONFailure;
@@ -33,27 +32,20 @@ static JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity) {
   }
   free(array->items);
 
-  // State Update
   array->items = new_items;
   array->capacity = new_capacity;
-
   return JSONSuccess;
 }
 
 static JSON_Status json_array_add(JSON_Array *array, JSON_Value *value) {
-  // Capacity Guard
   if (array->count >= array->capacity) {
-    // Capacity Growth
     size_t new_capacity = MAX(array->capacity * 2, STARTING_CAPACITY);
-
     if (json_array_resize(array, new_capacity) != JSONSuccess) {
       return JSONFailure;
     }
   }
 
-  // Push Value
   array->items[array->count] = value;
   array->count++;
-
   return JSONSuccess;
 }
