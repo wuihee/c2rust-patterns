@@ -16,6 +16,8 @@ static int appenddata(char **dst_buf, size_t *dst_len, size_t *dst_alloc,
   }
 
   need_alloc = src_len + *dst_len + 1;
+
+  // [Ensure Capacity]
   if (need_alloc > *dst_alloc) {
     size_t newsize = need_alloc * 2;
     char *newptr = realloc(*dst_buf, newsize);
@@ -26,6 +28,7 @@ static int appenddata(char **dst_buf, size_t *dst_len, size_t *dst_alloc,
     *dst_buf = newptr;
   }
 
+  // [Push Value]
   memcpy(*dst_buf + *dst_len, src_buf, src_len);
   *dst_len += src_len;
   *(*dst_buf + *dst_len) = '\0';

@@ -4,9 +4,9 @@ Represents a dynamic array that maps onto a Rust `Vec`.
 
 ## State
 
-- Data Pointer: A pointer to contiguous memory.
-- Length: Number of initialized elements.
-- Capacity: Total allocated space.
+- **Data Pointer**: A pointer to contiguous memory.
+- **Length**: Number of initialized elements.
+- **Capacity**: Total allocated space.
 
 ```c
 typedef struct {
@@ -36,7 +36,7 @@ length += n;
 
 Ensure `capacity` is sufficient for the required size.
 
-- Post Condition: `capacity >= required_size`
+- **Post Condition**: `capacity >= required_size`
 
 ```c
 if (length >= capacity) {
