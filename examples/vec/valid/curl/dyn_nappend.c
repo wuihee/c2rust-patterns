@@ -1,3 +1,5 @@
+// repos/curl/lib/curlx/dynbuf.c
+
 #include <assert.h>
 #include <stddef.h>
 #include <stdlib.h>
@@ -13,8 +15,13 @@ typedef enum {
 } CURLcode;
 
 struct dynbuf {
-  char *bufr;    /* point to a null-terminated allocated buffer */
-  size_t leng;   /* number of bytes *EXCLUDING* the null-terminator */
+  // [Pointer]
+  char *bufr; /* point to a null-terminated allocated buffer */
+
+  // [Length]
+  size_t leng; /* number of bytes *EXCLUDING* the null-terminator */
+
+  // [Capacity]
   size_t allc;   /* size of the current allocation */
   size_t toobig; /* size limit for the buffer */
   int init;      /* detect API usage mistakes */
@@ -55,7 +62,7 @@ static CURLcode dyn_nappend(struct dynbuf *s, const unsigned char *mem,
     assert(!idx);
     /* first invoke */
 
-    // Ensure Capacity
+    // [Ensure Capacity]
     if (MIN_FIRST_ALLOC > s->toobig)
       a = s->toobig;
     else if (fit < MIN_FIRST_ALLOC)
@@ -80,7 +87,7 @@ static CURLcode dyn_nappend(struct dynbuf *s, const unsigned char *mem,
     s->allc = a;
   }
 
-  // Push Value
+  // [Push Value]
   if (len)
     memcpy(&s->bufr[idx], mem, len);
   s->leng = idx + len;

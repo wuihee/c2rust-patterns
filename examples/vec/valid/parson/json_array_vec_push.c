@@ -12,8 +12,13 @@ typedef enum {
 typedef struct JSON_Value JSON_Value;
 
 typedef struct {
+  // [Pointer]
   JSON_Value **items;
+
+  // [Length]
   size_t count;
+
+  // [Capacity]
   size_t capacity;
 } JSON_Array;
 
@@ -38,6 +43,7 @@ static JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity) {
 }
 
 static JSON_Status json_array_add(JSON_Array *array, JSON_Value *value) {
+  // [Ensure Capacity]
   if (array->count >= array->capacity) {
     size_t new_capacity = MAX(array->capacity * 2, STARTING_CAPACITY);
     if (json_array_resize(array, new_capacity) != JSONSuccess) {
@@ -45,6 +51,7 @@ static JSON_Status json_array_add(JSON_Array *array, JSON_Value *value) {
     }
   }
 
+  // [Push Value]
   array->items[array->count] = value;
   array->count++;
   return JSONSuccess;
