@@ -2,7 +2,15 @@
 
 ## `tool_urlglob.c`
 
-`add_glob` ensures capacity after `glob_fixed`, `glob_set`, or `glob_range` pushes a new value into the array.
+- `glob_url` calls `glob_parse`. It ensures that `glob->pattern` has space for at least 2 `URLPattern`s.
+- The main loop inspects the current character, adding it to a buffer.
+- Once we've determined that the buffer contains a pattern, we add it to a vec of `URLPattern`s.
+- `add_glob` ensures capacity after `glob_fixed`, `glob_set`, or `glob_range` pushes a new value into the array.
+
+### Problems
+
+- Pre condition that `glob` has available space when calling `glob_parse`.
+- Indirect push pattern in `glob_fixed`, `glob_set`, and `glob_range`.
 
 ### Vec
 
