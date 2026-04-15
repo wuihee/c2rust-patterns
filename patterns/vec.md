@@ -18,6 +18,8 @@ typedef struct {
 
 ## Transitions
 
+### Initialize?
+
 ### Push Value
 
 Append `n` elements to the end of the array.
@@ -49,8 +51,6 @@ if (length >= capacity) {
 
 ## TODO
 
-- repos/curl/src/tool_urlglob.c:394, repos/curl/src/tool_urlglob.c:396
-- repos/curl/lib/http2.c:1481, repos/curl/lib/http2.c:1482
 - repos/curl/lib/getenv.c:42
 - repos/curl/src/tool_cb_wrt.c:216
 - test/example grow-buffers:  
