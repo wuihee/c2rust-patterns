@@ -51,7 +51,5 @@ if (length >= capacity) {
 
 ## TODO
 
-- repos/curl/lib/getenv.c:42
-- repos/curl/src/tool_cb_wrt.c:216
 - test/example grow-buffers:  
   repos/curl/tests/server/getpart.c:108, repos/curl/tests/server/getpart.c:113, repos/curl/tests/server/getpart.c:170, repos/curl/tests/server/mqttd.c:474, repos/curl/tests/server/rtspd.c:329, repos/curl/docs/examples/getinmemory.c:45, repos/curl/docs/examples/postinmemory.c:44, repos/curl/docs/examples/http2-pushinmemory.c:43, repos/curl/docs/examples/xmlstream.c:76, repos/curl/docs/examples/log_failed_transfers.c:101, repos/curl/docs/examples/crawler.c:69
