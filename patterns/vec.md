@@ -56,7 +56,3 @@ if (length >= capacity) {
 ## Invalid Pattern Variations
 
 - Reading from a file or stream into a growing buffer.
-
-## TODO
-
-- test/example grow-buffers: repos/curl/docs/examples/getinmemory.c:45, repos/curl/docs/examples/postinmemory.c:44, repos/curl/docs/examples/http2-pushinmemory.c:43, repos/curl/docs/examples/xmlstream.c:76, repos/curl/docs/examples/log_failed_transfers.c:101, repos/curl/docs/examples/crawler.c:69

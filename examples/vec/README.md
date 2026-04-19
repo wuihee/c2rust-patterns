@@ -2,6 +2,22 @@
 
 Examples of the `vec` pattern (dynamic array with pointer + length + capacity) from real C codebases.
 
+## Valid
+
+### `curl/appenddata.c`
+
+- Extends pattern.
+
+### `curl/dynbuf.c`
+
+- Extends pattern.
+
+### `curl/mem_nee.c`
+
+- Extend Vec with a new buffer.
+- Splits resizing buffer into a separate function.
+- Extends pattern.
+
 ## Invalid
 
 ### `curl/URLPattern.c`
@@ -27,10 +43,20 @@ len = (DWORD)MultiByteToWideChar(CP_UTF8, 0, (LPCSTR)rbuf, (int)rlen, global->te
 
 - Stream pattern.
 
-### `rtspd_httprequest.c`
+### `curl/rtspd_httprequest.c`
 
 - Extend pattern.
 - Missing capacity and capacity check.
+
+### `curl/write_cb.c`
+
+- Missing capacity check.
+- Extend pattern.
+
+### `curl/characterDataHandler.c`
+
+- Missing capacity check.
+- Extend pattern.
 
 ### `inih/missing_push_and_length_state.c`
 
