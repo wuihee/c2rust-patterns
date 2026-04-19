@@ -1,8 +1,10 @@
+// repos/parson/parson.c
+
+#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define STARTING_CAPACITY 16
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 typedef enum {
   JSONFailure = -1,
@@ -22,36 +24,35 @@ typedef struct {
   size_t capacity;
 } JSON_Array;
 
+// [Custom Grow] — allocates a fresh block and copies existing items over.
 static JSON_Status json_array_resize(JSON_Array *array, size_t new_capacity) {
-  JSON_Value **new_items = NULL;
-  if (new_capacity == 0) {
+  if (new_capacity == 0)
     return JSONFailure;
-  }
 
-  new_items = (JSON_Value **)malloc(new_capacity * sizeof(JSON_Value *));
-  if (new_items == NULL) {
+  JSON_Value **new_items = malloc(new_capacity * sizeof(JSON_Value *));
+  if (!new_items)
     return JSONFailure;
-  }
-  if (array->items != NULL && array->count > 0) {
+
+  if (array->items && array->count > 0)
     memcpy(new_items, array->items, array->count * sizeof(JSON_Value *));
-  }
-  free(array->items);
 
+  free(array->items);
   array->items = new_items;
   array->capacity = new_capacity;
   return JSONSuccess;
 }
 
 static JSON_Status json_array_add(JSON_Array *array, JSON_Value *value) {
-  // [Ensure Capacity]
+  // [Ensure Capacity: Custom Grow]
   if (array->count >= array->capacity) {
-    size_t new_capacity = MAX(array->capacity * 2, STARTING_CAPACITY);
-    if (json_array_resize(array, new_capacity) != JSONSuccess) {
+    size_t new_capacity = array->capacity * 2;
+    if (new_capacity < STARTING_CAPACITY)
+      new_capacity = STARTING_CAPACITY;
+    if (json_array_resize(array, new_capacity) != JSONSuccess)
       return JSONFailure;
-    }
   }
 
-  // [Push Value]
+  // [Push Value: Single]
   array->items[array->count] = value;
   array->count++;
   return JSONSuccess;
