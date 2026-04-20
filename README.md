@@ -35,7 +35,6 @@ This project studies recurring patterns in real C code that can map cleanly to R
 ### Potential Test Cases
 
 - git
-- curl
 - redis
 - libgit2
 - nginx

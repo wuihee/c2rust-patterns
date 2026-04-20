@@ -1,28 +1,21 @@
 // repos/curl/tests/server/getpart.c
 
-/*
- * readline()
- *
- * Reads a complete line from a file into a dynamically allocated buffer.
- *
- * Calling function may call this multiple times with same 'buffer'
- * and 'bufsize' pointers to avoid multiple buffer allocations. Buffer
- * will be reallocated and 'bufsize' increased until whole line fits in
- * buffer before returning it.
- *
- * Calling function is responsible to free allocated buffer.
- *
- * This function may return:
- *   GPE_OUT_OF_MEMORY
- *   GPE_END_OF_FILE
- *   GPE_OK
- */
-static int readline(char **buffer,   // [Vec Pointer]
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef enum {
+  GPE_OK = 0,
+  GPE_OUT_OF_MEMORY = 1,
+  GPE_END_OF_FILE = 2,
+} getpart_error;
+
+static int readline(char **buffer,   // [Pointer]
                     size_t *bufsize, // [Capacity]
                     size_t *length,  // [Length]
                     FILE *stream) {
   size_t offset = 0;
-  char *newptr;
 
   if (!*buffer) {
     *buffer = calloc(1, 128);
@@ -32,25 +25,26 @@ static int readline(char **buffer,   // [Vec Pointer]
   }
 
   for (;;) {
-    int bytestoread = curlx_uztosi(*bufsize - offset);
+    int bytestoread = (int)(*bufsize - offset);
 
-    // [Push Value: Invalid]
+    // [Push Value: Stream] — reads from a FILE* directly into the buffer
+    // instead of copying from another in-memory buffer.
     if (!fgets(*buffer + offset, bytestoread, stream)) {
       *length = 0;
       return (offset != 0) ? GPE_OK : GPE_END_OF_FILE;
     }
 
-    *length = offset + line_length(*buffer + offset, bytestoread);
+    *length = offset + strlen(*buffer + offset);
     if (*(*buffer + *length - 1) == '\n')
       break;
     offset = *length;
     if (*length < *bufsize - 1)
       continue;
 
-    newptr = realloc(*buffer, *bufsize * 2);
+    // [Ensure Capacity]
+    char *newptr = realloc(*buffer, *bufsize * 2);
     if (!newptr)
       return GPE_OUT_OF_MEMORY;
-    memset(&newptr[*bufsize], 0, *bufsize);
     *buffer = newptr;
     *bufsize *= 2;
   }
