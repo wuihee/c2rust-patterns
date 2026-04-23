@@ -36,6 +36,13 @@ File names encode variation tags: `{function}--{tags}.c`
 - Push Operation: Push-Single
 - Capacity Growth: Custom-Grow
 
+### `redis/vector--push-single--struct-based.c`
+
+- Memory-Layout: Struct-Based
+- Push Operation: Push-Single
+- Capacity Growth: Custom-Grow
+- Small Buffer Optimization: Contains an additional `stack` field in the `vec` struct that uses pre-allocated memory passed by the caller before fallling back on heap-allocated memory.
+
 ---
 
 ## Invalid
