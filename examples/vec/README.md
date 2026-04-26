@@ -38,9 +38,7 @@ File names encode variation tags: `{function}--{tags}.c`
 
 ### `redis/vector--push-single--struct-based.c`
 
-- Memory-Layout: Struct-Based
-- Push Operation: Push-Single
-- Capacity Growth: Custom-Grow
+- **Tags:** `struct-based`, `push-single`, `custom-grow`
 - Small Buffer Optimization: Contains an additional `stack` field in the `vec` struct that uses pre-allocated memory passed by the caller before fallling back on heap-allocated memory.
 
 ---
@@ -83,3 +81,7 @@ File names encode variation tags: `{function}--{tags}.c`
 ### `inih/inih_buffer_resize--stream-push.c`
 
 - Invalid Reason: Stream Push (`reader`)
+
+### `redis/sdshdr--extend--struct-based--custom-grow.c`
+
+- Invalid Reason: All Vec components are present. However, the `sds` API contains a lot of code to operate on three different types of structs, which may be difficult to abstract over.
