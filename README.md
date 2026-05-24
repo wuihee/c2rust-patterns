@@ -30,7 +30,10 @@ This project studies recurring patterns in real C code that can map cleanly to R
 
 ## TODOs
 
-- Identify the individual, identifying components of `vec` transitions.
+- Ask LLMs to find code that can be replaced by a library version of a dynamic array instead of directly asking for dynamic arrays.
+- Tell it not to disable tests.
+- Try to refine LLM approach to see if it can be accurate.
+- Specify way to do replacement - replace internals or replace call sites of API. We prefer to replace call sites.
 
 ### Potential Test Cases
 
