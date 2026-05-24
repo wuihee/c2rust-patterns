@@ -39,7 +39,7 @@ File names encode variation tags: `{function}--{tags}.c`
 ### `redis/vector--push-single--struct-based.c`
 
 - **Tags:** `struct-based`, `push-single`, `custom-grow`
-- Small Buffer Optimization: Contains an additional `stack` field in the `vec` struct that uses pre-allocated memory passed by the caller before fallling back on heap-allocated memory.
+- Small Buffer Optimization: Contains an additional `stack` field in the `vec` struct that uses pre-allocated memory passed by the caller before falling back on heap-allocated memory.
 
 ---
 
